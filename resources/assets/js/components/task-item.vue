@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-4">
+    <div class="">
         <div class="flex items-center w-full" v-show="state.edit === false">
             <input type="checkbox" class="mr-2" v-model="data.finished" @click="updateTask">
             <p class="w-auto"
@@ -48,7 +48,7 @@
 
                 t.$nextTick(() => {
                     bus.$emit('update-task', {data: t.data, index: t.index, id: t.task.id});
-                })
+                });
 
                 t.state.edit = false;
             },
