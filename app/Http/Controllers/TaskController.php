@@ -89,6 +89,7 @@ class TaskController extends Controller
      *
      * @param  \App\task $task
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(task $task)
     {

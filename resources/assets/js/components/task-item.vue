@@ -1,21 +1,22 @@
+<!-- This will  -->
 <template>
     <div class="">
-        <div class="flex items-center w-full" v-show="state.edit === false">
-            <input type="checkbox" class="mr-2" v-model="data.finished" @click="updateTask">
-            <p class="w-auto"
+        <div v-show="state.edit === false">
+            <input type="checkbox" class="" v-model="data.finished" @click="updateTask">
+            <p class=""
                :class="data.finished ? 'line-through text-green' : 'text-grey-darkest cursor-pointer hover:text-black hover:font-bold'"
                @click="startEdit">{{task.text}}</p>
-            <button class="flex-no-shrink p-2 ml-auto border-2 rounded text-red border-red hover:text-white hover:bg-red"
+            <button class=""
                     @click="remove(index)">Remove
             </button>
         </div>
-        <div class="flex items-center w-full" v-show="state.edit === true">
-            <input class="appearance-none border rounded w-full py-2 px-3 mr-2 text-black" v-model="data.text"
-                   @keyup.enter="updateTask" placeholder="Update Todo">
-            <button class="flex-no-shrink p-2 ml-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal"
+        <div class="" v-show="state.edit === true">
+            <input class="" v-model="data.text"
+                   @keyup.enter="updateTask" placeholder="Update Task">
+            <button class=""
                     @click="updateTask" :disabled="data.text.length === 0">Update
             </button>
-            <button class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
+            <button class=""
                     @click="cancelEdit">Cancel
             </button>
         </div>

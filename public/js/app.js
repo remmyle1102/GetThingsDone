@@ -43731,97 +43731,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg"
-    },
-    [
-      _c("div", { staticClass: "mb-6" }, [
-        _c("h1", { staticClass: "text-grey-darkest" }, [
-          _vm._v("Get Things Done")
+    return _c("div", {staticClass: "container"}, [
+        _c("div", {staticClass: "container-fluid"}, [
+            _c("h1", {staticClass: "title"}, [_vm._v("Get Things Done")]),
+            _vm._v(" "),
+            _c("div", {}, [
+                _c("input", {
+                    directives: [
+                        {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newTask,
+                            expression: "newTask"
+                        }
+                    ],
+                    attrs: {placeholder: "Add Task"},
+                    domProps: {value: _vm.newTask},
+                    on: {
+                        keyup: function ($event) {
+                            if (
+                                !("button" in $event) &&
+                                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                            ) {
+                                return null
+                            }
+                            return _vm.addTask($event)
+                        },
+                        input: function ($event) {
+                            if ($event.target.composing) {
+                                return
+                            }
+                            _vm.newTask = $event.target.value
+                        }
+                    }
+                }),
+                _vm._v(" "),
+                _c(
+                    "button",
+                    {
+                        attrs: {disabled: _vm.newTask.length === 0},
+                        on: {click: _vm.addTask}
+                    },
+                    [_vm._v("Add\n            ")]
+                )
+            ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "flex mt-4" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.newTask,
-                expression: "newTask"
-              }
-            ],
-            staticClass:
-              "shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker",
-            attrs: { placeholder: "Add Task" },
-            domProps: { value: _vm.newTask },
-            on: {
-              keyup: function($event) {
-                if (
-                  !("button" in $event) &&
-                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                ) {
-                  return null
-                }
-                return _vm.addTask($event)
-              },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.newTask = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal",
-              attrs: { disabled: _vm.newTask.length === 0 },
-              on: { click: _vm.addTask }
-            },
-            [_vm._v("Add\n            ")]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "max-h-screen-1/2 overflow-y-scroll" },
-        [
-          _vm._l(_vm.tasks, function(task, index) {
-            return _c("task-item", {
-              key: task.id,
-              attrs: { task: task, index: index }
-            })
-          }),
-          _vm._v(" "),
-          _c(
+        _c(
             "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.tasks.length === 0,
-                  expression: "tasks.length === 0"
-                }
-              ]
-            },
+            {staticClass: "content"},
             [
-              _c("p", { staticClass: "w-full text-center text-grey-dark" }, [
-                _vm._v("There are no tasks")
-              ])
-            ]
-          )
-        ],
-        2
-      )
-    ]
-  )
+                _vm._l(_vm.tasks, function (task, index) {
+                    return _c("task-item", {
+                        key: task.id,
+                        attrs: {task: task, index: index}
+                    })
+                }),
+                _vm._v(" "),
+                _c(
+                    "div",
+                    {
+                        directives: [
+                            {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.tasks.length === 0,
+                                expression: "tasks.length === 0"
+                            }
+                        ]
+                    },
+                    [_c("p", {}, [_vm._v("There are no tasks")])]
+                )
+            ],
+            2
+        )
+    ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43919,7 +43903,7 @@ exports = module.exports = __webpack_require__(41)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+        exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -43930,6 +43914,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -44014,7 +43999,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "mb-4" }, [
+    return _c("div", {}, [
     _c(
       "div",
       {
@@ -44025,8 +44010,7 @@ var render = function() {
             value: _vm.state.edit === false,
             expression: "state.edit === false"
           }
-        ],
-        staticClass: "flex items-center w-full"
+        ]
       },
       [
         _c("input", {
@@ -44038,7 +44022,6 @@ var render = function() {
               expression: "data.finished"
             }
           ],
-          staticClass: "mr-2",
           attrs: { type: "checkbox" },
           domProps: {
             checked: Array.isArray(_vm.data.finished)
@@ -44074,7 +44057,6 @@ var render = function() {
         _c(
           "p",
           {
-            staticClass: "w-auto",
             class: _vm.data.finished
               ? "line-through text-green"
               : "text-grey-darkest cursor-pointer hover:text-black hover:font-bold",
@@ -44086,8 +44068,6 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass:
-              "flex-no-shrink p-2 ml-auto border-2 rounded text-red border-red hover:text-white hover:bg-red",
             on: {
               click: function($event) {
                 _vm.remove(_vm.index)
@@ -44109,8 +44089,7 @@ var render = function() {
             value: _vm.state.edit === true,
             expression: "state.edit === true"
           }
-        ],
-        staticClass: "flex items-center w-full"
+        ]
       },
       [
         _c("input", {
@@ -44122,9 +44101,7 @@ var render = function() {
               expression: "data.text"
             }
           ],
-          staticClass:
-            "appearance-none border rounded w-full py-2 px-3 mr-2 text-black",
-          attrs: { placeholder: "Update Todo" },
+            attrs: {placeholder: "Update Task"},
           domProps: { value: _vm.data.text },
           on: {
             keyup: function($event) {
@@ -44148,23 +44125,15 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass:
-              "flex-no-shrink p-2 ml-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal",
             attrs: { disabled: _vm.data.text.length === 0 },
             on: { click: _vm.updateTask }
           },
           [_vm._v("Update\n        ")]
         ),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red",
-            on: { click: _vm.cancelEdit }
-          },
-          [_vm._v("Cancel\n        ")]
-        )
+          _c("button", {on: {click: _vm.cancelEdit}}, [
+              _vm._v("Cancel\n        ")
+          ])
       ]
     )
   ])
