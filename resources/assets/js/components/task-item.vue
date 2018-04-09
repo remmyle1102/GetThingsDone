@@ -1,28 +1,24 @@
 <!-- This will  -->
 <template>
-    <div class="">
-        <div v-show="state.edit === false">
-            <input type="checkbox" class="" v-model="data.finished" @click="updateTask">
-            <p class=""
-               :class="data.finished ? 'line-through text-green' : 'text-grey-darkest cursor-pointer hover:text-black hover:font-bold'"
-               @click="startEdit">{{task.text}}</p>
-            <button class=""
-                    @click="remove(index)">Remove
-            </button>
+    <div class="control ">
+
+        <div class="item" v-show="state.edit === false">
+            <input type="checkbox" class="checkbox" v-model="data.finished" @click="updateTask">
+            <p class="" @click="startEdit">{{task.text}}</p>
+            <button class="button is-danger is-outlined" @click="remove(index)">Remove</button>
         </div>
         <div class="" v-show="state.edit === true">
             <input class="" v-model="data.text"
                    @keyup.enter="updateTask" placeholder="Update Task">
-            <button class=""
+            <button class="button"
                     @click="updateTask" :disabled="data.text.length === 0">Update
             </button>
-            <button class=""
+            <button class="button"
                     @click="cancelEdit">Cancel
             </button>
         </div>
     </div>
 </template>
-
 <script>
     export default {
         props: ['task', 'index'],

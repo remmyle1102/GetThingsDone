@@ -1,16 +1,14 @@
 <template>
     <div class="container">
-        <div class="container-fluid">
-            <h1 class="title">Get Things Done</h1>
-            <div class="">
-                <input class=""
-                       v-model="newTask" @keyup.enter="addTask" placeholder="Add Task">
-                <button class=""
+        <h1 class="title">Get Things Done</h1>
+        <div class="field ">
+            <input class="input is-success is-inline-block" v-model="newTask" @keyup.enter="addTask"
+                   placeholder="Add Task">
+            <button class="button is-success is-outlined"
                         @click="addTask" :disabled="newTask.length === 0">Add
                 </button>
-            </div>
         </div>
-        <div class="content">
+        <div class="">
             <task-item class="" v-for="(task, index) in tasks" :key="task.id" :task="task" :index="index"></task-item>
             <div class="" v-show="tasks.length === 0">
                 <p class="">There are no tasks</p>
@@ -71,7 +69,6 @@
             },
             removeTask(details) {
                 const t = this;
-
                 axios.delete('/tasks/' + details.id)
                     .then(() => {
                         t.tasks.splice(details.index, 1)
