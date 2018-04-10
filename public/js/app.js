@@ -960,321 +960,8 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 9 */
-    /***/ (function (module, exports) {
-
-        /*
-            MIT License http://www.opensource.org/licenses/mit-license.php
-            Author Tobias Koppers @sokra
-        */
-// css base code, injected by the css-loader
-        module.exports = function (useSourceMap) {
-            var list = [];
-
-            // return the list of modules as css string
-            list.toString = function toString() {
-                return this.map(function (item) {
-                    var content = cssWithMappingToString(item, useSourceMap);
-                    if (item[2]) {
-                        return "@media " + item[2] + "{" + content + "}";
-                    } else {
-                        return content;
-                    }
-                }).join("");
-            };
-
-            // import a list of modules into the list
-            list.i = function (modules, mediaQuery) {
-                if (typeof modules === "string")
-                    modules = [[null, modules, ""]];
-                var alreadyImportedModules = {};
-                for (var i = 0; i < this.length; i++) {
-                    var id = this[i][0];
-                    if (typeof id === "number")
-                        alreadyImportedModules[id] = true;
-                }
-                for (i = 0; i < modules.length; i++) {
-                    var item = modules[i];
-                    // skip already imported module
-                    // this implementation is not 100% perfect for weird media query combinations
-                    //  when a module is imported multiple times with different media queries.
-                    //  I hope this will never occur (Hey this way we have smaller bundles)
-                    if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-                        if (mediaQuery && !item[2]) {
-                            item[2] = mediaQuery;
-                        } else if (mediaQuery) {
-                            item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-                        }
-                        list.push(item);
-                    }
-                }
-            };
-            return list;
-        };
-
-        function cssWithMappingToString(item, useSourceMap) {
-            var content = item[1] || '';
-            var cssMapping = item[3];
-            if (!cssMapping) {
-                return content;
-            }
-
-            if (useSourceMap && typeof btoa === 'function') {
-                var sourceMapping = toComment(cssMapping);
-                var sourceURLs = cssMapping.sources.map(function (source) {
-                    return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-                });
-
-                return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-            }
-
-            return [content].join('\n');
-        }
-
-// Adapted from convert-source-map (MIT)
-        function toComment(sourceMap) {
-            // eslint-disable-next-line no-undef
-            var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-            var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-            return '/*# ' + data + ' */';
-        }
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-        /*
-          MIT License http://www.opensource.org/licenses/mit-license.php
-          Author Tobias Koppers @sokra
-          Modified by Evan You @yyx990803
-        */
-
-        var hasDocument = typeof document !== 'undefined'
-
-        if (typeof DEBUG !== 'undefined' && DEBUG) {
-            if (!hasDocument) {
-                throw new Error(
-                    'vue-style-loader cannot be used in a non-browser environment. ' +
-                    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-                )
-            }
-        }
-
-        var listToStyles = __webpack_require__(44)
-
-        /*
-        type StyleObject = {
-          id: number;
-          parts: Array<StyleObjectPart>
-        }
-
-        type StyleObjectPart = {
-          css: string;
-          media: string;
-          sourceMap: ?string
-        }
-        */
-
-        var stylesInDom = {
-            /*
-              [id: number]: {
-                id: number,
-                refs: number,
-                parts: Array<(obj?: StyleObjectPart) => void>
-              }
-            */
-        }
-
-        var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-        var singletonElement = null
-        var singletonCounter = 0
-        var isProduction = false
-        var noop = function () {
-        }
-        var options = null
-        var ssrIdKey = 'data-vue-ssr-id'
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-        var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-        module.exports = function (parentId, list, _isProduction, _options) {
-            isProduction = _isProduction
-
-            options = _options || {}
-
-            var styles = listToStyles(parentId, list)
-            addStylesToDom(styles)
-
-            return function update(newList) {
-                var mayRemove = []
-                for (var i = 0; i < styles.length; i++) {
-                    var item = styles[i]
-                    var domStyle = stylesInDom[item.id]
-                    domStyle.refs--
-                    mayRemove.push(domStyle)
-                }
-                if (newList) {
-                    styles = listToStyles(parentId, newList)
-                    addStylesToDom(styles)
-                } else {
-                    styles = []
-                }
-                for (var i = 0; i < mayRemove.length; i++) {
-                    var domStyle = mayRemove[i]
-                    if (domStyle.refs === 0) {
-                        for (var j = 0; j < domStyle.parts.length; j++) {
-                            domStyle.parts[j]()
-                        }
-                        delete stylesInDom[domStyle.id]
-                    }
-                }
-            }
-        }
-
-        function addStylesToDom(styles /* Array<StyleObject> */) {
-            for (var i = 0; i < styles.length; i++) {
-                var item = styles[i]
-                var domStyle = stylesInDom[item.id]
-                if (domStyle) {
-                    domStyle.refs++
-                    for (var j = 0; j < domStyle.parts.length; j++) {
-                        domStyle.parts[j](item.parts[j])
-                    }
-                    for (; j < item.parts.length; j++) {
-                        domStyle.parts.push(addStyle(item.parts[j]))
-                    }
-                    if (domStyle.parts.length > item.parts.length) {
-                        domStyle.parts.length = item.parts.length
-                    }
-                } else {
-                    var parts = []
-                    for (var j = 0; j < item.parts.length; j++) {
-                        parts.push(addStyle(item.parts[j]))
-                    }
-                    stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts}
-                }
-            }
-        }
-
-        function createStyleElement() {
-            var styleElement = document.createElement('style')
-            styleElement.type = 'text/css'
-            head.appendChild(styleElement)
-            return styleElement
-        }
-
-        function addStyle(obj /* StyleObjectPart */) {
-            var update, remove
-            var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
-
-            if (styleElement) {
-                if (isProduction) {
-                    // has SSR styles and in production mode.
-                    // simply do nothing.
-                    return noop
-                } else {
-                    // has SSR styles but in dev mode.
-                    // for some reason Chrome can't handle source map in server-rendered
-                    // style tags - source maps in <style> only works if the style tag is
-                    // created and inserted dynamically. So we remove the server rendered
-                    // styles and inject new ones.
-                    styleElement.parentNode.removeChild(styleElement)
-                }
-            }
-
-            if (isOldIE) {
-                // use singleton mode for IE9.
-                var styleIndex = singletonCounter++
-                styleElement = singletonElement || (singletonElement = createStyleElement())
-                update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-                remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-            } else {
-                // use multi-style-tag mode in all other cases
-                styleElement = createStyleElement()
-                update = applyToTag.bind(null, styleElement)
-                remove = function () {
-                    styleElement.parentNode.removeChild(styleElement)
-                }
-            }
-
-            update(obj)
-
-            return function updateStyle(newObj /* StyleObjectPart */) {
-                if (newObj) {
-                    if (newObj.css === obj.css &&
-                        newObj.media === obj.media &&
-                        newObj.sourceMap === obj.sourceMap) {
-                        return
-                    }
-                    update(obj = newObj)
-                } else {
-                    remove()
-                }
-            }
-        }
-
-        var replaceText = (function () {
-            var textStore = []
-
-            return function (index, replacement) {
-                textStore[index] = replacement
-                return textStore.filter(Boolean).join('\n')
-            }
-        })()
-
-        function applyToSingletonTag(styleElement, index, remove, obj) {
-            var css = remove ? '' : obj.css
-
-            if (styleElement.styleSheet) {
-                styleElement.styleSheet.cssText = replaceText(index, css)
-            } else {
-                var cssNode = document.createTextNode(css)
-                var childNodes = styleElement.childNodes
-                if (childNodes[index]) styleElement.removeChild(childNodes[index])
-                if (childNodes.length) {
-                    styleElement.insertBefore(cssNode, childNodes[index])
-                } else {
-                    styleElement.appendChild(cssNode)
-                }
-            }
-        }
-
-        function applyToTag(styleElement, obj) {
-            var css = obj.css
-            var media = obj.media
-            var sourceMap = obj.sourceMap
-
-            if (media) {
-                styleElement.setAttribute('media', media)
-            }
-            if (options.ssrId) {
-                styleElement.setAttribute(ssrIdKey, obj.id)
-            }
-
-            if (sourceMap) {
-                // https://developer.chrome.com/devtools/docs/javascript-debugging
-                // this makes source maps inside style tags work properly in Chrome
-                css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-                // http://stackoverflow.com/a/26603875
-                css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-            }
-
-            if (styleElement.styleSheet) {
-                styleElement.styleSheet.cssText = css
-            } else {
-                while (styleElement.firstChild) {
-                    styleElement.removeChild(styleElement.firstChild)
-                }
-                styleElement.appendChild(document.createTextNode(css))
-            }
-        }
-
-
-        /***/
-    }),
+    /* 9 */,
+    /* 10 */,
     /* 11 */
     /***/ (function (module, exports) {
 
@@ -1407,7 +1094,7 @@ module.exports = Cancel;
         __webpack_require__(14);
 
         window.Vue = __webpack_require__(38);
-
+        window.bus = new Vue();
         /**
          * Next, we will create a fresh Vue application instance and attach it to
          * the page. Then, you may begin adding components to this application
@@ -43491,22 +43178,17 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-    __webpack_require__(42)
-}
-
         var normalizeComponent = __webpack_require__(11)
 /* script */
         var __vue_script__ = __webpack_require__(45)
 /* template */
-        var __vue_template__ = __webpack_require__(51)
+        var __vue_template__ = __webpack_require__(58)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+        var __vue_styles__ = null
 /* scopeId */
-var __vue_scopeId__ = "data-v-74cc74df"
+        var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -43539,80 +43221,9 @@ module.exports = Component.exports
 
 
 /***/ }),
-    /* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-        var content = __webpack_require__(43);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-        var update = __webpack_require__(10)("5d7b500c", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-74cc74df\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./task-list.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-74cc74df\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./task-list.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-    /* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-        exports = module.exports = __webpack_require__(9)(false);
-// imports
-
-
-// module
-        exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-    /* 44 */
-    /***/ (function (module, exports) {
-
-        /**
-         * Translates the list format produced by css-loader into something
-         * easier to manipulate.
-         */
-        module.exports = function listToStyles(parentId, list) {
-            var styles = []
-            var newStyles = {}
-            for (var i = 0; i < list.length; i++) {
-                var item = list[i]
-                var id = item[0]
-                var css = item[1]
-                var media = item[2]
-                var sourceMap = item[3]
-                var part = {
-                    id: parentId + ':' + i,
-                    css: css,
-                    media: media,
-                    sourceMap: sourceMap
-                }
-                if (!newStyles[id]) {
-                    styles.push(newStyles[id] = {id: id, parts: [part]})
-                } else {
-                    newStyles[id].parts.push(part)
-                }
-            }
-            return styles
-        }
-
-
-        /***/
-    }),
+    /* 42 */,
+    /* 43 */,
+    /* 44 */,
     /* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -43621,6 +43232,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         /* harmony import */
         var __WEBPACK_IMPORTED_MODULE_0__task_item__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__task_item___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__task_item__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43659,11 +43276,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var t = this;
 
             bus.$on('update-task', function (details) {
-                t.update(details);
+                t.updateTask(details);
             });
 
             bus.$on('remove-task', function (details) {
-                t.remove(details);
+                t.removeTask(details);
             });
         },
         getTasks: function getTasks() {
@@ -43684,6 +43301,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 t.tasks.unshift(data);
             });
         },
+        addTask: function addTask() {
+            var t = this;
+
+            if (t.newTask.length > 0) {
+                t.createTask(t.newTask);
+                t.newTask = '';
+            }
+        },
         updateTask: function updateTask(details) {
             var t = this;
 
@@ -43695,17 +43320,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         removeTask: function removeTask(details) {
             var t = this;
+
             axios.delete('/tasks/' + details.id).then(function () {
                 t.tasks.splice(details.index, 1);
             });
-        },
-        addTask: function addTask() {
-            var t = this;
-
-            if (t.newTask.length > 0) {
-                t.createTask(t.newTask);
-                t.newTask = '';
-            }
         }
     },
     components: {
@@ -43718,22 +43336,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-    __webpack_require__(47)
-}
-
         var normalizeComponent = __webpack_require__(11)
 /* script */
         var __vue_script__ = __webpack_require__(49)
 /* template */
-        var __vue_template__ = __webpack_require__(50)
+        var __vue_template__ = __webpack_require__(57)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+        var __vue_styles__ = null
 /* scopeId */
-var __vue_scopeId__ = "data-v-6ac6fcd4"
+        var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -43766,52 +43379,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-    /* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-        var content = __webpack_require__(48);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-        var update = __webpack_require__(10)("5bd7a76b", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ac6fcd4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./task-item.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ac6fcd4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./task-item.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-    /* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-        exports = module.exports = __webpack_require__(9)(false);
-// imports
-
-
-// module
-        exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
+    /* 47 */,
+    /* 48 */,
     /* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -43885,14 +43459,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-    /* 50 */
+    /* 50 */,
+    /* 51 */,
+    /* 52 */
+    /***/ (function (module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+        /***/
+    }),
+    /* 53 */,
+    /* 54 */,
+    /* 55 */,
+    /* 56 */,
+    /* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-    return _c("div", {staticClass: "control "}, [
+    return _c("div", {staticClass: " "}, [
     _c(
       "div",
       {
@@ -43903,8 +43490,7 @@ var render = function() {
             value: _vm.state.edit === false,
             expression: "state.edit === false"
           }
-        ],
-          staticClass: "item"
+        ]
       },
       [
         _c("input", {
@@ -43916,7 +43502,7 @@ var render = function() {
               expression: "data.finished"
             }
           ],
-            staticClass: "checkbox",
+            staticClass: "checkbox form-control ",
           attrs: { type: "checkbox" },
           domProps: {
             checked: Array.isArray(_vm.data.finished)
@@ -44040,87 +43626,83 @@ if (false) {
 
         /***/
     }),
-    /* 51 */
+    /* 58 */
     /***/ (function (module, exports, __webpack_require__) {
 
         var render = function () {
             var _vm = this
             var _h = _vm.$createElement
             var _c = _vm._self._c || _h
-            return _c("div", {staticClass: "container"}, [
-                _c("h1", {staticClass: "title"}, [_vm._v("Get Things Done")]),
-                _vm._v(" "),
-                _c("div", {staticClass: "field "}, [
-                    _c("input", {
-                        directives: [
-                            {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.newTask,
-                                expression: "newTask"
-                            }
-                        ],
-                        staticClass: "input is-success is-inline-block",
-                        attrs: {placeholder: "Add Task"},
-                        domProps: {value: _vm.newTask},
-                        on: {
-                            keyup: function ($event) {
-                                if (
-                                    !("button" in $event) &&
-                                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                                ) {
-                                    return null
-                                }
-                                return _vm.addTask($event)
-                            },
-                            input: function ($event) {
-                                if ($event.target.composing) {
-                                    return
-                                }
-                                _vm.newTask = $event.target.value
-                            }
-                        }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                        "button",
-                        {
-                            staticClass: "button is-success is-outlined",
-                            attrs: {disabled: _vm.newTask.length === 0},
-                            on: {click: _vm.addTask}
-                        },
-                        [_vm._v("Add\n            ")]
-                    )
-                ]),
-                _vm._v(" "),
-                _c(
-                    "div",
-                    {},
-                    [
-                        _vm._l(_vm.tasks, function (task, index) {
-                            return _c("task-item", {
-                                key: task.id,
-                                attrs: {task: task, index: index}
-                            })
-                        }),
-                        _vm._v(" "),
-                        _c(
-                            "div",
-                            {
+            return _c("section", {staticClass: "is-info"}, [
+                _c("div", {staticClass: "hero-body"}, [
+                    _c("div", {staticClass: "container has-text-centered"}, [
+                        _c("div", {staticClass: "column is-6 is-offset-3"}, [
+                            _c("h1", {staticClass: "title"}, [_vm._v("Get Things Done")]),
+                            _vm._v(" "),
+                            _c("input", {
                                 directives: [
                                     {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: _vm.tasks.length === 0,
-                                        expression: "tasks.length === 0"
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.newTask,
+                                        expression: "newTask"
                                     }
-                                ]
-                            },
-                            [_c("p", {}, [_vm._v("There are no tasks")])]
-                        )
-                    ],
-                    2
-                )
+                                ],
+                                staticClass: "input is-success",
+                                attrs: {autofocus: "", placeholder: "Add a new task"},
+                                domProps: {value: _vm.newTask},
+                                on: {
+                                    keyup: function ($event) {
+                                        if (
+                                            !("button" in $event) &&
+                                            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                                        ) {
+                                            return null
+                                        }
+                                        return _vm.addTask($event)
+                                    },
+                                    input: function ($event) {
+                                        if ($event.target.composing) {
+                                            return
+                                        }
+                                        _vm.newTask = $event.target.value
+                                    }
+                                }
+                            }),
+                            _vm._v(" "),
+                            _c("div", {staticClass: "box"}, [
+                                _c(
+                                    "div",
+                                    {staticClass: "field is-grouped"},
+                                    [
+                                        _vm._l(_vm.tasks, function (task, index) {
+                                            return _c("task-item", {
+                                                key: task.id,
+                                                attrs: {task: task, index: index}
+                                            })
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                            "div",
+                                            {
+                                                directives: [
+                                                    {
+                                                        name: "show",
+                                                        rawName: "v-show",
+                                                        value: _vm.tasks.length === 0,
+                                                        expression: "tasks.length === 0"
+                                                    }
+                                                ]
+                                            },
+                                            [_c("p", {}, [_vm._v("There are no tasks")])]
+                                        )
+                                    ],
+                                    2
+                                )
+                            ])
+                        ])
+                    ])
+                ])
             ])
         }
         var staticRenderFns = []
@@ -44132,13 +43714,6 @@ if (false) {
                 require("vue-hot-reload-api").rerender("data-v-74cc74df", module.exports)
             }
         }
-
-        /***/
-    }),
-    /* 52 */
-    /***/ (function (module, exports) {
-
-// removed by extract-text-webpack-plugin
 
         /***/
     })

@@ -1,9 +1,8 @@
 <!-- This will  -->
 <template>
-    <div class="control ">
-
-        <div class="item" v-show="state.edit === false">
-            <input type="checkbox" class="checkbox" v-model="data.finished" @click="updateTask">
+    <div class=" ">
+        <div class="" v-show="state.edit === false">
+            <input type="checkbox" class="checkbox form-control " v-model="data.finished" @click="updateTask">
             <p class="" @click="startEdit">{{task.text}}</p>
             <button class="button is-danger is-outlined" @click="remove(index)">Remove</button>
         </div>
@@ -70,7 +69,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>
