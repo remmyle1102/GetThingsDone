@@ -61,7 +61,7 @@
 /******/
 /******/ 	// Load entry module and return exports
     /******/
-    return __webpack_require__(__webpack_require__.s = 12);
+    return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -72,7 +72,7 @@
 
 
 var bind = __webpack_require__(3);
-        var isBuffer = __webpack_require__(21);
+        var isBuffer = __webpack_require__(19);
 
 /*global toString:true*/
 
@@ -409,7 +409,7 @@ module.exports = g;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-            var normalizeHeaderName = __webpack_require__(23);
+            var normalizeHeaderName = __webpack_require__(21);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -717,12 +717,12 @@ process.umask = function() { return 0; };
 
 
 var utils = __webpack_require__(0);
-        var settle = __webpack_require__(24);
-        var buildURL = __webpack_require__(26);
-        var parseHeaders = __webpack_require__(27);
-        var isURLSameOrigin = __webpack_require__(28);
+        var settle = __webpack_require__(22);
+        var buildURL = __webpack_require__(24);
+        var parseHeaders = __webpack_require__(25);
+        var isURLSameOrigin = __webpack_require__(26);
 var createError = __webpack_require__(6);
-        var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(29);
+        var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(27);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -819,7 +819,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-        var cookies = __webpack_require__(30);
+        var cookies = __webpack_require__(28);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -903,7 +903,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-        var enhanceError = __webpack_require__(25);
+        var enhanceError = __webpack_require__(23);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -960,9 +960,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-    /* 9 */,
-    /* 10 */,
-    /* 11 */
+    /* 9 */
     /***/ (function (module, exports) {
 
         /* globals __VUE_SSR_CONTEXT__ */
@@ -1072,16 +1070,16 @@ module.exports = Cancel;
 
         /***/
     }),
-    /* 12 */
+    /* 10 */
     /***/ (function (module, exports, __webpack_require__) {
 
-        __webpack_require__(13);
-        module.exports = __webpack_require__(52);
+        __webpack_require__(11);
+        module.exports = __webpack_require__(45);
 
 
         /***/
     }),
-    /* 13 */
+    /* 11 */
     /***/ (function (module, exports, __webpack_require__) {
 
 
@@ -1091,9 +1089,9 @@ module.exports = Cancel;
          * building robust, powerful web applications using Vue and Laravel.
          */
 
-        __webpack_require__(14);
+        __webpack_require__(12);
 
-        window.Vue = __webpack_require__(38);
+        window.Vue = __webpack_require__(36);
         window.bus = new Vue();
         /**
          * Next, we will create a fresh Vue application instance and attach it to
@@ -1101,7 +1099,7 @@ module.exports = Cancel;
          * or customize the JavaScript scaffolding to fit your unique needs.
          */
 
-        Vue.component('task-component', __webpack_require__(41));
+        Vue.component('task-component', __webpack_require__(39));
 
         var app = new Vue({
             el: '#app'
@@ -1109,11 +1107,11 @@ module.exports = Cancel;
 
         /***/
     }),
-    /* 14 */
+    /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        window._ = __webpack_require__(15);
+        window._ = __webpack_require__(13);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -1122,9 +1120,9 @@ module.exports = Cancel;
  */
 
 try {
-    window.$ = window.jQuery = __webpack_require__(17);
+    window.$ = window.jQuery = __webpack_require__(15);
 
-    __webpack_require__(18);
+    __webpack_require__(16);
 } catch (e) {}
 
 /**
@@ -1133,7 +1131,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(19);
+window.axios = __webpack_require__(17);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -1169,7 +1167,7 @@ if (token) {
 // });
 
 /***/ }),
-    /* 15 */
+    /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18272,10 +18270,10 @@ if (token) {
 }.call(this));
 
             /* WEBPACK VAR INJECTION */
-        }.call(exports, __webpack_require__(1), __webpack_require__(16)(module)))
+        }.call(exports, __webpack_require__(1), __webpack_require__(14)(module)))
 
 /***/ }),
-    /* 16 */
+    /* 14 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -18303,7 +18301,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-    /* 17 */
+    /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -28674,7 +28672,7 @@ return jQuery;
 
 
 /***/ }),
-    /* 18 */
+    /* 16 */
 /***/ (function(module, exports) {
 
 /*!
@@ -31057,13 +31055,13 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-    /* 19 */
+    /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-        module.exports = __webpack_require__(20);
+        module.exports = __webpack_require__(18);
 
 /***/ }),
-    /* 20 */
+    /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31071,7 +31069,7 @@ if (typeof jQuery === 'undefined') {
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(3);
-        var Axios = __webpack_require__(22);
+        var Axios = __webpack_require__(20);
 var defaults = __webpack_require__(2);
 
 /**
@@ -31106,14 +31104,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(8);
-        axios.CancelToken = __webpack_require__(36);
+        axios.CancelToken = __webpack_require__(34);
 axios.isCancel = __webpack_require__(7);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-        axios.spread = __webpack_require__(37);
+        axios.spread = __webpack_require__(35);
 
 module.exports = axios;
 
@@ -31122,7 +31120,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-    /* 21 */
+    /* 19 */
 /***/ (function(module, exports) {
 
 /*!
@@ -31149,7 +31147,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-    /* 22 */
+    /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31157,8 +31155,8 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
-        var InterceptorManager = __webpack_require__(31);
-        var dispatchRequest = __webpack_require__(32);
+        var InterceptorManager = __webpack_require__(29);
+        var dispatchRequest = __webpack_require__(30);
 
 /**
  * Create a new instance of Axios
@@ -31235,7 +31233,7 @@ module.exports = Axios;
 
 
 /***/ }),
-    /* 23 */
+    /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31254,7 +31252,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-    /* 24 */
+    /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31287,7 +31285,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-    /* 25 */
+    /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31315,7 +31313,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-    /* 26 */
+    /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31390,7 +31388,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-    /* 27 */
+    /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31450,7 +31448,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-    /* 28 */
+    /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31525,7 +31523,7 @@ module.exports = (
 
 
 /***/ }),
-    /* 29 */
+    /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31568,7 +31566,7 @@ module.exports = btoa;
 
 
 /***/ }),
-    /* 30 */
+    /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31628,7 +31626,7 @@ module.exports = (
 
 
 /***/ }),
-    /* 31 */
+    /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31687,18 +31685,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-    /* 32 */
+    /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-        var transformData = __webpack_require__(33);
+        var transformData = __webpack_require__(31);
 var isCancel = __webpack_require__(7);
 var defaults = __webpack_require__(2);
-        var isAbsoluteURL = __webpack_require__(34);
-        var combineURLs = __webpack_require__(35);
+        var isAbsoluteURL = __webpack_require__(32);
+        var combineURLs = __webpack_require__(33);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -31780,7 +31778,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-    /* 33 */
+    /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31807,7 +31805,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-    /* 34 */
+    /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31828,7 +31826,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-    /* 35 */
+    /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31849,7 +31847,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-    /* 36 */
+    /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31913,7 +31911,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-    /* 37 */
+    /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31947,7 +31945,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-    /* 38 */
+    /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42911,10 +42909,10 @@ Vue.compile = compileToFunctions;
 module.exports = Vue;
 
             /* WEBPACK VAR INJECTION */
-        }.call(exports, __webpack_require__(1), __webpack_require__(39).setImmediate))
+        }.call(exports, __webpack_require__(1), __webpack_require__(37).setImmediate))
 
 /***/ }),
-    /* 39 */
+    /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
@@ -42967,7 +42965,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-            __webpack_require__(40);
+            __webpack_require__(38);
 // On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -42981,7 +42979,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-    /* 40 */
+    /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -43174,15 +43172,15 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
-/* 41 */
+    /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-        var normalizeComponent = __webpack_require__(11)
+        var normalizeComponent = __webpack_require__(9)
 /* script */
-        var __vue_script__ = __webpack_require__(45)
+        var __vue_script__ = __webpack_require__(40)
 /* template */
-        var __vue_template__ = __webpack_require__(58)
+        var __vue_template__ = __webpack_require__(44)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -43221,22 +43219,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-    /* 42 */,
-    /* 43 */,
-    /* 44 */,
-    /* 45 */
+    /* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         /* harmony import */
-        var __WEBPACK_IMPORTED_MODULE_0__task_item__ = __webpack_require__(46);
+        var __WEBPACK_IMPORTED_MODULE_0__task_item__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__task_item___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__task_item__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -43332,15 +43322,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-    /* 46 */
+    /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-        var normalizeComponent = __webpack_require__(11)
+        var normalizeComponent = __webpack_require__(9)
 /* script */
-        var __vue_script__ = __webpack_require__(49)
+        var __vue_script__ = __webpack_require__(42)
 /* template */
-        var __vue_template__ = __webpack_require__(57)
+        var __vue_template__ = __webpack_require__(43)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -43379,13 +43369,27 @@ module.exports = Component.exports
 
 
 /***/ }),
-    /* 47 */,
-    /* 48 */,
-    /* 49 */
+    /* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43434,7 +43438,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             t.$nextTick(function () {
                 bus.$emit('update-task', { data: t.data, index: t.index, id: t.task.id });
             });
-
             t.state.edit = false;
         },
         remove: function remove() {
@@ -43459,162 +43462,187 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-    /* 50 */,
-    /* 51 */,
-    /* 52 */
-    /***/ (function (module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-        /***/
-    }),
-    /* 53 */,
-    /* 54 */,
-    /* 55 */,
-    /* 56 */,
-    /* 57 */
+    /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-    return _c("div", {staticClass: " "}, [
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.state.edit === false,
-            expression: "state.edit === false"
-          }
-        ]
-      },
-      [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.data.finished,
-              expression: "data.finished"
-            }
-          ],
-            staticClass: "checkbox form-control ",
-          attrs: { type: "checkbox" },
-          domProps: {
-            checked: Array.isArray(_vm.data.finished)
-              ? _vm._i(_vm.data.finished, null) > -1
-              : _vm.data.finished
-          },
-          on: {
-            click: _vm.updateTask,
-            change: function($event) {
-              var $$a = _vm.data.finished,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 && _vm.$set(_vm.data, "finished", $$a.concat([$$v]))
-                } else {
-                  $$i > -1 &&
-                    _vm.$set(
-                      _vm.data,
-                      "finished",
-                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                    )
-                }
-              } else {
-                _vm.$set(_vm.data, "finished", $$c)
-              }
-            }
-          }
-        }),
-        _vm._v(" "),
-          _c("p", {on: {click: _vm.startEdit}}, [
-              _vm._v(_vm._s(_vm.task.text))
-          ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-              staticClass: "button is-danger is-outlined",
-            on: {
-              click: function($event) {
-                _vm.remove(_vm.index)
-              }
-            }
-          },
-            [_vm._v("Remove")]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.state.edit === true,
-            expression: "state.edit === true"
-          }
-        ]
-      },
-      [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.data.text,
-              expression: "data.text"
-            }
-          ],
-            attrs: {placeholder: "Update Task"},
-          domProps: { value: _vm.data.text },
-          on: {
-            keyup: function($event) {
-              if (
-                !("button" in $event) &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
-              return _vm.updateTask($event)
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.data, "text", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-              staticClass: "button",
-            attrs: { disabled: _vm.data.text.length === 0 },
-            on: { click: _vm.updateTask }
-          },
-          [_vm._v("Update\n        ")]
-        ),
-        _vm._v(" "),
-          _c("button", {staticClass: "button", on: {click: _vm.cancelEdit}}, [
-              _vm._v("Cancel\n        ")
+    return _c("table", {staticClass: "table is-striped"}, [
+        _c("tbody", [
+            _c(
+                "tr",
+                {
+                    directives: [
+                        {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.state.edit === false,
+                            expression: "state.edit === false"
+                        }
+                    ]
+                },
+                [
+                    _c("td", {attrs: {width: "5%"}}, [
+                        _c("div", {staticClass: "pretty p-switch p-fill"}, [
+                            _c("input", {
+                                directives: [
+                                    {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.data.finished,
+                                        expression: "data.finished"
+                                    }
+                                ],
+                                attrs: {type: "checkbox"},
+                                domProps: {
+                                    checked: Array.isArray(_vm.data.finished)
+                                        ? _vm._i(_vm.data.finished, null) > -1
+                                        : _vm.data.finished
+                                },
+                                on: {
+                                    click: _vm.updateTask,
+                                    change: function ($event) {
+                                        var $$a = _vm.data.finished,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                            var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                                $$i < 0 &&
+                                                _vm.$set(_vm.data, "finished", $$a.concat([$$v]))
+                                            } else {
+                                                $$i > -1 &&
+                                                _vm.$set(
+                                                    _vm.data,
+                                                    "finished",
+                                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                        } else {
+                                            _vm.$set(_vm.data, "finished", $$c)
+                                        }
+                                    }
+                                }
+                            }),
+                            _vm._v(" "),
+                            _vm._m(0)
+                        ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                        "td",
+                        {
+                            class: _vm.data.finished ? "finished-task" : "",
+                            on: {dblclick: _vm.startEdit}
+                        },
+                        [_vm._v(_vm._s(_vm.task.text))]
+                    ),
+                    _vm._v(" "),
+                    _c("td", {attrs: {width: "5%"}}, [
+                        _c(
+                            "a",
+                            {
+                                directives: [
+                                    {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.data.finished === true,
+                                        expression: "data.finished ===true"
+                                    }
+                                ],
+                                staticClass: "button is-danger is-outlined is-small"
+                            },
+                            [
+                                _c("span", {staticClass: "icon is-small"}, [
+                                    _c("i", {
+                                        staticClass: "fa fa-trash",
+                                        attrs: {id: "removeIcons"},
+                                        on: {
+                                            click: function ($event) {
+                                                _vm.remove(_vm.index)
+                                            }
+                                        }
+                                    })
+                                ])
+                            ]
+                        )
+                    ])
+                ]
+            ),
+            _vm._v(" "),
+            _c(
+                "tr",
+                {
+                    directives: [
+                        {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.state.edit === true,
+                            expression: "state.edit === true"
+                        }
+                    ]
+                },
+                [
+                    _c("td", [
+                        _c("input", {
+                            directives: [
+                                {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.data.text,
+                                    expression: "data.text"
+                                }
+                            ],
+                            staticClass: "input is-info",
+                            attrs: {autofocus: "", disabled: _vm.data.text.length === 0},
+                            domProps: {value: _vm.data.text},
+                            on: {
+                                keyup: [
+                                    function ($event) {
+                                        if (
+                                            !("button" in $event) &&
+                                            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                                        ) {
+                                            return null
+                                        }
+                                        return _vm.updateTask($event)
+                                    },
+                                    function ($event) {
+                                        if (
+                                            !("button" in $event) &&
+                                            _vm._k($event.keyCode, "esc", 27, $event.key, "Escape")
+                                        ) {
+                                            return null
+                                        }
+                                        return _vm.cancelEdit($event)
+                                    }
+                                ],
+                                blur: _vm.updateTask,
+                                input: function ($event) {
+                                    if ($event.target.composing) {
+                                        return
+                                    }
+                                    _vm.$set(_vm.data, "text", $event.target.value)
+                                }
+                            }
+                        })
           ])
-      ]
-    )
+                ]
+            )
+        ])
   ])
 }
-var staticRenderFns = []
+        var staticRenderFns = [
+            function () {
+                var _vm = this
+                var _h = _vm.$createElement
+                var _c = _vm._self._c || _h
+                return _c("div", {staticClass: "state p-success"}, [_c("label")])
+            }
+        ]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -43626,7 +43654,7 @@ if (false) {
 
         /***/
     }),
-    /* 58 */
+    /* 44 */
     /***/ (function (module, exports, __webpack_require__) {
 
         var render = function () {
@@ -43649,7 +43677,7 @@ if (false) {
                                     }
                                 ],
                                 staticClass: "input is-success",
-                                attrs: {autofocus: "", placeholder: "Add a new task"},
+                                attrs: {autofocus: "", placeholder: "What needs to be done?"},
                                 domProps: {value: _vm.newTask},
                                 on: {
                                     keyup: function ($event) {
@@ -43670,36 +43698,26 @@ if (false) {
                                 }
                             }),
                             _vm._v(" "),
-                            _c("div", {staticClass: "box"}, [
-                                _c(
-                                    "div",
-                                    {staticClass: "field is-grouped"},
-                                    [
-                                        _vm._l(_vm.tasks, function (task, index) {
-                                            return _c("task-item", {
-                                                key: task.id,
-                                                attrs: {task: task, index: index}
-                                            })
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                            "div",
-                                            {
-                                                directives: [
-                                                    {
-                                                        name: "show",
-                                                        rawName: "v-show",
-                                                        value: _vm.tasks.length === 0,
-                                                        expression: "tasks.length === 0"
-                                                    }
-                                                ]
-                                            },
-                                            [_c("p", {}, [_vm._v("There are no tasks")])]
-                                        )
+                            _c(
+                                "div",
+                                {
+                                    directives: [
+                                        {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: _vm.tasks.length,
+                                            expression: "tasks.length"
+                                        }
                                     ],
-                                    2
-                                )
-                            ])
+                                    staticClass: "card card-table is-success"
+                                },
+                                _vm._l(_vm.tasks, function (task, index) {
+                                    return _c("task-item", {
+                                        key: task.id,
+                                        attrs: {task: task, index: index}
+                                    })
+                                })
+                            )
                         ])
                     ])
                 ])
@@ -43714,6 +43732,13 @@ if (false) {
                 require("vue-hot-reload-api").rerender("data-v-74cc74df", module.exports)
             }
         }
+
+        /***/
+    }),
+    /* 45 */
+    /***/ (function (module, exports) {
+
+// removed by extract-text-webpack-plugin
 
         /***/
     })

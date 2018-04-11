@@ -5,16 +5,11 @@
                 <div class="column is-6 is-offset-3">
                     <h1 class="title">Get Things Done</h1>
                     <input class="input is-success" autofocus v-model="newTask" @keyup.enter="addTask"
-                           placeholder="Add a new task">
-                    <div class="box">
-                        <div class="field is-grouped">
-
+                           placeholder="What needs to be done?">
+                    <div class="card card-table is-success" v-show="tasks.length" v-cloak>
                             <task-item class="" v-for="(task, index) in tasks" :key="task.id" :task="task"
-                                       :index="index"></task-item>
-                            <div class="" v-show="tasks.length === 0">
-                                <p class="">There are no tasks</p>
-                            </div>
-                        </div>
+                                       :index="index">
+                            </task-item>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,25 @@
+[v-cloak] {
+  display: none;
+}
+
+.finished-task {
+  text-decoration: line-through;
+  color: lightgrey;
+}
+
+.card-table {
+  max-height: 500px;
+  overflow-y: scroll;
+  margin-bottom: 0;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.content table td {
+  padding: .5em .75em;
+  vertical-align: top;
+}

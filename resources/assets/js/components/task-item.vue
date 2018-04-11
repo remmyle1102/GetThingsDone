@@ -1,22 +1,38 @@
-<!-- This will  -->
 <template>
-    <div class=" ">
-        <div class="" v-show="state.edit === false">
-            <input type="checkbox" class="checkbox form-control " v-model="data.finished" @click="updateTask">
-            <p class="" @click="startEdit">{{task.text}}</p>
-            <button class="button is-danger is-outlined" @click="remove(index)">Remove</button>
-        </div>
-        <div class="" v-show="state.edit === true">
-            <input class="" v-model="data.text"
-                   @keyup.enter="updateTask" placeholder="Update Task">
-            <button class="button"
-                    @click="updateTask" :disabled="data.text.length === 0">Update
-            </button>
-            <button class="button"
-                    @click="cancelEdit">Cancel
-            </button>
-        </div>
-    </div>
+    <table class="table is-striped">
+        <tbody>
+        <tr v-show="state.edit === false">
+            <!--Checkbox -->
+            <td width="5%">
+                <div class="pretty p-switch p-fill">
+                    <input type="checkbox" v-model="data.finished" @click="updateTask"/>
+                    <div class="state p-success">
+                        <label></label>
+                    </div>
+                </div>
+            </td>
+            <!--Things need to be done -->
+            <td :class="data.finished ? 'finished-task' : '' " @dblclick="startEdit">{{task.text}}</td>
+            <!-- Remove Button -->
+            <td width="5%">
+                <a class="button is-danger is-outlined is-small" v-show="data.finished ===true">
+                        <span class="icon is-small">
+      <i class="fa fa-trash" id="removeIcons" @click="remove(index)"></i>
+                        </span>
+                </a>
+            </td>
+        </tr>
+        <tr v-show="state.edit === true">
+            <td>
+                <input class="input is-info" autofocus v-model="data.text"
+                       @keyup.enter="updateTask"
+                       @blur="updateTask"
+                       @keyup.esc="cancelEdit"
+                       :disabled="data.text.length===0">
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </template>
 <script>
     export default {
@@ -45,7 +61,6 @@
                 t.$nextTick(() => {
                     bus.$emit('update-task', {data: t.data, index: t.index, id: t.task.id});
                 });
-
                 t.state.edit = false;
             },
             remove() {
