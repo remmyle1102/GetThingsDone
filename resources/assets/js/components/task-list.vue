@@ -7,9 +7,11 @@
                     <input class="input is-success" autofocus v-model="newTask" @keyup.enter="addTask"
                            placeholder="What needs to be done?">
                     <div class="card card-table is-success" v-show="tasks.length" v-cloak>
+                        <table class="table is-striped" id="table">
                             <task-item class="" v-for="(task, index) in tasks" :key="task.id" :task="task"
                                        :index="index">
                             </task-item>
+                        </table>
                     </div>
                 </div>
             </div>

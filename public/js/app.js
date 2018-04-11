@@ -43246,6 +43246,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -43469,170 +43471,172 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-    return _c("table", {staticClass: "table is-striped"}, [
-        _c("tbody", [
-            _c(
-                "tr",
-                {
-                    directives: [
-                        {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.state.edit === false,
-                            expression: "state.edit === false"
-                        }
-                    ]
-                },
-                [
-                    _c("td", {attrs: {width: "5%"}}, [
-                        _c("div", {staticClass: "pretty p-switch p-fill"}, [
-                            _c("input", {
-                                directives: [
-                                    {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.data.finished,
-                                        expression: "data.finished"
-                                    }
-                                ],
-                                attrs: {type: "checkbox"},
-                                domProps: {
-                                    checked: Array.isArray(_vm.data.finished)
-                                        ? _vm._i(_vm.data.finished, null) > -1
-                                        : _vm.data.finished
-                                },
-                                on: {
-                                    click: _vm.updateTask,
-                                    change: function ($event) {
-                                        var $$a = _vm.data.finished,
-                                            $$el = $event.target,
-                                            $$c = $$el.checked ? true : false
-                                        if (Array.isArray($$a)) {
-                                            var $$v = null,
-                                                $$i = _vm._i($$a, $$v)
-                                            if ($$el.checked) {
-                                                $$i < 0 &&
-                                                _vm.$set(_vm.data, "finished", $$a.concat([$$v]))
-                                            } else {
-                                                $$i > -1 &&
-                                                _vm.$set(
-                                                    _vm.data,
-                                                    "finished",
-                                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                                )
-                                            }
-                                        } else {
-                                            _vm.$set(_vm.data, "finished", $$c)
-                                        }
-                                    }
-                                }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(0)
-                        ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                        "td",
-                        {
-                            class: _vm.data.finished ? "finished-task" : "",
-                            on: {dblclick: _vm.startEdit}
-                        },
-                        [_vm._v(_vm._s(_vm.task.text))]
-                    ),
-                    _vm._v(" "),
-                    _c("td", {attrs: {width: "5%"}}, [
-                        _c(
-                            "a",
-                            {
-                                directives: [
-                                    {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: _vm.data.finished === true,
-                                        expression: "data.finished ===true"
-                                    }
-                                ],
-                                staticClass: "button is-danger is-outlined is-small"
-                            },
-                            [
-                                _c("span", {staticClass: "icon is-small"}, [
-                                    _c("i", {
-                                        staticClass: "fa fa-trash",
-                                        attrs: {id: "removeIcons"},
-                                        on: {
-                                            click: function ($event) {
-                                                _vm.remove(_vm.index)
-                                            }
-                                        }
-                                    })
-                                ])
-                            ]
-                        )
-                    ])
+    return _c("tbody", [
+        _c(
+            "tr",
+            {
+                directives: [
+                    {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.state.edit === false,
+                        expression: "state.edit === false"
+                    }
                 ]
-            ),
-            _vm._v(" "),
-            _c(
-                "tr",
-                {
-                    directives: [
-                        {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.state.edit === true,
-                            expression: "state.edit === true"
-                        }
-                    ]
-                },
-                [
-                    _c("td", [
+            },
+            [
+                _c("td", {attrs: {width: "5%"}}, [
+                    _c("div", {staticClass: "pretty p-switch p-fill"}, [
                         _c("input", {
                             directives: [
                                 {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.data.text,
-                                    expression: "data.text"
+                                    value: _vm.data.finished,
+                                    expression: "data.finished"
                                 }
                             ],
-                            staticClass: "input is-info",
-                            attrs: {autofocus: "", disabled: _vm.data.text.length === 0},
-                            domProps: {value: _vm.data.text},
+                            attrs: {type: "checkbox"},
+                            domProps: {
+                                checked: Array.isArray(_vm.data.finished)
+                                    ? _vm._i(_vm.data.finished, null) > -1
+                                    : _vm.data.finished
+                            },
                             on: {
-                                keyup: [
-                                    function ($event) {
-                                        if (
-                                            !("button" in $event) &&
-                                            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                                        ) {
-                                            return null
+                                click: _vm.updateTask,
+                                change: function ($event) {
+                                    var $$a = _vm.data.finished,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                            $$i < 0 &&
+                                            _vm.$set(_vm.data, "finished", $$a.concat([$$v]))
+                                        } else {
+                                            $$i > -1 &&
+                                            _vm.$set(
+                                                _vm.data,
+                                                "finished",
+                                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                            )
                                         }
-                                        return _vm.updateTask($event)
-                                    },
-                                    function ($event) {
-                                        if (
-                                            !("button" in $event) &&
-                                            _vm._k($event.keyCode, "esc", 27, $event.key, "Escape")
-                                        ) {
-                                            return null
-                                        }
-                                        return _vm.cancelEdit($event)
+                                    } else {
+                                        _vm.$set(_vm.data, "finished", $$c)
                                     }
-                                ],
-                                blur: _vm.updateTask,
-                                input: function ($event) {
-                                    if ($event.target.composing) {
-                                        return
-                                    }
-                                    _vm.$set(_vm.data, "text", $event.target.value)
                                 }
                             }
-                        })
-          ])
+                        }),
+                        _vm._v(" "),
+                        _vm._m(0)
+                    ])
+                ]),
+                _vm._v(" "),
+                _c(
+                    "td",
+                    {
+                        class: _vm.data.finished ? "finished-task" : "",
+                        on: {dblclick: _vm.startEdit}
+                    },
+                    [_vm._v(_vm._s(_vm.task.text))]
+                ),
+                _vm._v(" "),
+                _c("td", {attrs: {width: "5%"}}, [
+                    _c(
+                        "a",
+                        {
+                            directives: [
+                                {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.data.finished === true,
+                                    expression: "data.finished ===true"
+                                }
+                            ],
+                            staticClass: "button is-danger is-outlined is-small"
+                        },
+                        [
+                            _c("span", {staticClass: "icon is-small"}, [
+                                _c("i", {
+                                    staticClass: "fa fa-trash",
+                                    attrs: {id: "removeIcons"},
+                                    on: {
+                                        click: function ($event) {
+                                            _vm.remove(_vm.index)
+                                        }
+                                    }
+                                })
+                            ])
+                        ]
+                    )
+                ])
+            ]
+        ),
+        _vm._v(" "),
+        _c(
+            "tr",
+            {
+                directives: [
+                    {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.state.edit === true,
+                        expression: "state.edit === true"
+                    }
                 ]
-            )
-        ])
+            },
+            [
+                _c("td", [
+                    _c("input", {
+                        directives: [
+                            {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.data.text,
+                                expression: "data.text"
+                            }
+                        ],
+                        staticClass: "input is-info is-fullwidth",
+                        attrs: {
+                            autofocus: "",
+                            autofocus: _vm.updateTask,
+                            disabled: _vm.data.text.length === 0
+                        },
+                        domProps: {value: _vm.data.text},
+                        on: {
+                            keyup: [
+                                function ($event) {
+                                    if (
+                                        !("button" in $event) &&
+                                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                                    ) {
+                                        return null
+                                    }
+                                    return _vm.updateTask($event)
+                                },
+                                function ($event) {
+                                    if (
+                                        !("button" in $event) &&
+                                        _vm._k($event.keyCode, "esc", 27, $event.key, "Escape")
+                                    ) {
+                                        return null
+                                    }
+                                    return _vm.cancelEdit($event)
+                                }
+                            ],
+                            blur: _vm.updateTask,
+                            input: function ($event) {
+                                if ($event.target.composing) {
+                                    return
+                                }
+                                _vm.$set(_vm.data, "text", $event.target.value)
+                            }
+                        }
+                    })
+                ])
+            ]
+        )
   ])
 }
         var staticRenderFns = [
@@ -43711,12 +43715,18 @@ if (false) {
                                     ],
                                     staticClass: "card card-table is-success"
                                 },
-                                _vm._l(_vm.tasks, function (task, index) {
-                                    return _c("task-item", {
-                                        key: task.id,
-                                        attrs: {task: task, index: index}
-                                    })
-                                })
+                                [
+                                    _c(
+                                        "table",
+                                        {staticClass: "table is-striped", attrs: {id: "table"}},
+                                        _vm._l(_vm.tasks, function (task, index) {
+                                            return _c("task-item", {
+                                                key: task.id,
+                                                attrs: {task: task, index: index}
+                                            })
+                                        })
+                                    )
+                                ]
                             )
                         ])
                     ])

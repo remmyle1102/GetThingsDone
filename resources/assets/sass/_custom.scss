@@ -2,18 +2,21 @@
   display: none;
 }
 
+#table {
+  margin-bottom: 0;
+}
 .finished-task {
   text-decoration: line-through;
   color: lightgrey;
 }
 
 .card-table {
-  max-height: 500px;
+  max-height: 435px;
   overflow-y: scroll;
-  margin-bottom: 0;
 }
 
 tr {
+  height: 43.5px;
   display: table-row;
   vertical-align: inherit;
   border-color: inherit;

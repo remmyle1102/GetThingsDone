@@ -1,5 +1,4 @@
 <template>
-    <table class="table is-striped">
         <tbody>
         <tr v-show="state.edit === false">
             <!--Checkbox -->
@@ -24,7 +23,8 @@
         </tr>
         <tr v-show="state.edit === true">
             <td>
-                <input class="input is-info" autofocus v-model="data.text"
+                <input class="input is-info is-fullwidth" autofocus v-model="data.text"
+                       :autofocus="updateTask"
                        @keyup.enter="updateTask"
                        @blur="updateTask"
                        @keyup.esc="cancelEdit"
@@ -32,7 +32,7 @@
             </td>
         </tr>
         </tbody>
-    </table>
+
 </template>
 <script>
     export default {
