@@ -10,7 +10,7 @@
 	<title>Get Things Done</title>
 </head>
 <body>
-<div id="app" class="text-center">
+<div id="app" class="text-center bg">
 <task-component></task-component>
 @yield('content')
 </div>

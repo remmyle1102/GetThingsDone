@@ -2,8 +2,32 @@
   display: none;
 }
 
+#newTaskForm {
+  position: relative;
+  display: inline-flex;
+}
+
+#newTaskButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  height: 100%;
+  background: url("https://photos-3.dropbox.com/t/2/AACmRAuAswdttsRVp-bHi2wmnLL2Jk3780A7uCBrCqZrPg/12/858182208/jpeg/32x32/1/_/1/2/aurora_borealis_atmosphere-2560x1440.jpg/ENCP76YJGBIgAigC/P4ObGfOMNc91Oe9BwP5XROyD75MIb63arg6bbPFRC8w?size=2048x1536&size_mode=3") no-repeat center;
+  background-size: cover;
+}
 #table {
   margin-bottom: 0;
+  border-spacing: 0;
+  background: transparent;
 }
 .finished-task {
   text-decoration: line-through;
@@ -11,7 +35,7 @@
 }
 
 .card-table {
-  max-height: 435px;
+  max-height: 348px;
   overflow-y: scroll;
 }
 
@@ -22,7 +46,22 @@ tr {
   border-color: inherit;
 }
 
+
 .content table td {
   padding: .5em .75em;
   vertical-align: top;
 }
+
+#inputEditTask {
+  height: 43.5px;
+}
+
+#tdEditTask {
+  padding: 0;
+}
+
+$white: #ffffff;
+$title-color: $white;
+$transparent-color: rgba(0, 0, 0, 0.5);
+$table-background-color: $transparent-color;
+$table-color: $transparent-color;

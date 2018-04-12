@@ -1,13 +1,14 @@
 <template>
-    <section class="is-info">
+    <section class="is-transparent">
         <div class="hero-body">
             <div class="container has-text-centered">
                 <div class="column is-6 is-offset-3">
                     <h1 class="title">Get Things Done</h1>
-                    <input class="input is-success" autofocus v-model="newTask" @keyup.enter="addTask"
+                    <input class="input is-success" width="100%" autofocus v-model="newTask"
+                           @keyup.enter="addTask"
                            placeholder="What needs to be done?">
                     <div class="card card-table is-success" v-show="tasks.length" v-cloak>
-                        <table class="table is-striped" id="table">
+                        <table class="table is-success" id="table">
                             <task-item class="" v-for="(task, index) in tasks" :key="task.id" :task="task"
                                        :index="index">
                             </task-item>
@@ -24,7 +25,7 @@
 
     export default {
         data() {
-            return{
+            return {
                 tasks: [],
                 newTask: '',
             }
@@ -39,7 +40,7 @@
 
                 bus.$on('update-task', function (details) {
                     t.updateTask(details);
-                })
+                });
 
                 bus.$on('remove-task', function (details) {
                     t.removeTask(details);
