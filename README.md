@@ -3,7 +3,7 @@
 A simple, elegant and no-nonsense task manager.
 ![alt text](introduction.png)
 
-#Introduction
+# Introduction
 This project is built with Laravel and Vuejs. If you find this interesting and find something you can learn from it.
 Following these steps to clone and test it on your server:
 
@@ -19,5 +19,5 @@ Run this command to generate an encryption key.
 
 ``php artisan key:generate``
 
-#Troubleshooting
+# Troubleshooting
 If something does not work as expected. Please let me know, I really appreciate it.
