@@ -19,5 +19,6 @@ Run this command to generate an encryption key.
 
 ``php artisan key:generate``
 
+Create database and run ``php artisan migrate``
 # Troubleshooting
 If something does not work as expected. Please let me know, I really appreciate it.
