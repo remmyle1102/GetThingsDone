@@ -1,24 +1,50 @@
 # Get Things Done
+This project is built with Laravel and Vuejs. A simple, elegant and no-nonsense task manager.
 
-A simple, elegant and no-nonsense task manager.
 ![alt text](introduction.png)
 
-# Introduction
-This project is built with Laravel and Vuejs. If you find this interesting and find something you can learn from it.
-Following these steps to clone and test it on your server:
+# Installation
+
+1. Clone repo
 
 ``git clone https://github.com/remmyle1102/GetThingsDone``
 
-Move this project to your server. Then run this command:
+2. Change directory
 
-``composer update``
+``cd GetThingsDone``
 
-If it shows 500 error code, you should make sure you have permission to run.
+3. Copy .env file and modify with it your database config
 
-Run this command to generate an encryption key.
+``cp .env.example .env``
+
+
+4. Install dependencies
+
+``composer install``
+
+5. Generate an encryption key
 
 ``php artisan key:generate``
 
-Create database and run ``php artisan migrate``
+5. Database migration
+
+``php artisan migrate``
+
+6. Open tinker to add dummy data to database
+
+``php artisan tinker``
+
+7. Create 3 dummy data
+
+``factory(App\task::class, 3)->create();``
+
+8. Install node modules
+
+``npm install``
+
+9. Build
+
+``npm run production``
+
 # Troubleshooting
 If something does not work as expected. Please let me know, I really appreciate it.
